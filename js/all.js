@@ -41,7 +41,7 @@ const app = {
             .then(res => {
                 if (res.data.success == true) {
                     console.log("驗證成功，轉入至產品頁", res);
-                    // location.assign('product.html');
+                    location.assign('product.html');
                 }
                 else {
                     console.log("驗證失敗，請重新登入", res);
