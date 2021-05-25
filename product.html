@@ -14,7 +14,7 @@
     <div id="app">
         <div class="container">
             <div class="text-end mt-4">
-                <button class="btn btn-primary" @click="getData">
+                <button class="btn btn-primary">
                     建立新的產品
                 </button>
             </div>
@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, key) in products">
+                    <tr v-for="(item, key) in products" :key="item.id">
                         <td>{{item.category}}</td>
                         <td>{{item.title}}</td>
                         <td>{{item.origin_price}}</td>
@@ -53,7 +53,7 @@
                                 <button type="button" class="btn btn-outline-primary btn-sm">
                                     編輯
                                 </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm">
+                                <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteOne(item.id)">
                                     刪除
                                 </button>
                             </div>
@@ -63,7 +63,7 @@
             </table>
         </div>
         <!-- Modal -->
-        <!-- <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
+        <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content border-0">
@@ -180,7 +180,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Modal -->
     </div>
 
