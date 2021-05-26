@@ -47,13 +47,45 @@ const app = {
                 this.isNew = true;
                 modal.show();
             }else if(action == 'edit'){
-                this.tempdata = {...item};
+                this.tempData = {...item};
                 this.isNew = false;
                 modal.show();
             }else if(action == 'delete'){
                 this.tempData = {...item};
                 delModal.show();
             }
+        },
+        deleteItem(){
+            axios.delete(`${this.url}/api/${this.apiPath}/admin/product/${this.tempData.id}`)
+            .then(res=>{
+                if(res.data.success){
+                    this.getData();
+                }else{
+
+                }
+            })
+            .catch(err=>console.log(err))
+        },
+        updateData(){
+            let httpMethod = '';
+            let url = '';
+            if(this.isNew){
+                httpMethod = 'post';
+                url = `${this.url}/api/${this.apiPath}/admin/product`;
+            }else if(!this.isNew){
+                httpMethod = 'put';
+                url = `${this.url}/api/${this.apiPath}/admin/product/${this.tempData.id}`;
+            }
+            axios[httpMethod](url,{"data": this.tempData})
+            .then(res=>{
+                if(res.data.success){
+                    this.getData();
+                    alert('成功更新商品列表');
+                }else{
+                    alert(res.data.message);
+                }
+            })
+            .catch(err=>console.log(err))
         }
     },
     mounted() {
