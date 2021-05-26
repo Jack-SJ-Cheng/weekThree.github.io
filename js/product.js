@@ -1,9 +1,14 @@
+let modal = '';
+let delModal = '';
+
 const app = {
     data() {
         return {
             url: "https://vue3-course-api.hexschool.io",
             apiPath: "randomno",
-            products: []
+            products: [],
+            tempData: {},
+            isNew: true
         }
     },
     methods: {
@@ -36,20 +41,24 @@ const app = {
                 })
                 .catch(err => console.log(err))
         },
-        deleteOne(id, e) {
-            axios.delete(`${this.url}/api/${this.apiPath}/admin/product/${id}`)
-                .then(res => {
-                    if (res.data.success) {
-                        console.log(res);
-                        this.getData();
-                    } else {
-                        alert(res.data.message)
-                    }
-                })
-                .catch(err => console.log(err))
+        modal(action, item){
+            if(action == 'new'){
+                this.tempData = {};
+                this.isNew = true;
+                modal.show();
+            }else if(action == 'edit'){
+                this.tempdata = {...item};
+                this.isNew = false;
+                modal.show();
+            }else if(action == 'delete'){
+                this.tempData = {...item};
+                delModal.show();
+            }
         }
     },
-    created() {
+    mounted() {
+        modal = new bootstrap.Modal(document.querySelector('#productModal'))
+        delModal = new bootstrap.Modal(document.querySelector('#delProductModal'))
         const cookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexCookie\s*\=\s*([^;]*).*$)|^.*$/, "$1");
         axios.defaults.headers.common['Authorization'] = cookie;
         this.verify();

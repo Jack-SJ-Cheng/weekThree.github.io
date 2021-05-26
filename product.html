@@ -14,7 +14,7 @@
     <div id="app">
         <div class="container">
             <div class="text-end mt-4">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" @click="modal('new')">
                     建立新的產品
                 </button>
             </div>
@@ -50,10 +50,10 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                <button type="button" class="btn btn-outline-primary btn-sm" @click="modal('edit', item)">
                                     編輯
                                 </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteOne(item.id)">
+                                <button type="button" class="btn btn-outline-danger btn-sm" @click="modal('delete', item)">
                                     刪除
                                 </button>
                             </div>
@@ -67,9 +67,9 @@
             aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content border-0">
-                    <div class="modal-header bg-dark text-white">
+                    <div class="modal-header text-white" :class="isNew? 'bg-success':'bg-dark'">
                         <h5 id="productModalLabel" class="modal-title">
-                            <span>新增產品</span>
+                            <span>{{isNew? '新增產品':'編輯產品'}}</span>
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="modal-body">
                         是否刪除
-                        <strong class="text-danger"></strong> 商品(刪除後將無法恢復)。
+                        <strong class="text-danger"></strong> {{tempData.title}}(刪除後將無法恢復)。
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
