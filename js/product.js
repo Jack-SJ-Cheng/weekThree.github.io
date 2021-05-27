@@ -47,7 +47,7 @@ const app = {
                 this.isNew = true;
                 modal.show();
             }else if(action == 'edit'){
-                this.tempData = {...item};
+                this.tempData = JSON.parse(JSON.stringify(item));
                 this.isNew = false;
                 modal.show();
             }else if(action == 'delete'){
@@ -61,7 +61,7 @@ const app = {
                 if(res.data.success){
                     this.getData();
                 }else{
-
+                    alert(res.data.message);
                 }
             })
             .catch(err=>console.log(err))
